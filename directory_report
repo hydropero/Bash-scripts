@@ -1,0 +1,38 @@
+#!/bin/bash
+
+echo 'Folder-rundown'
+
+sleep 1
+
+num_of_files=$(ls | wc -l)
+echo 'There are' $num_of_files 'items total in this directory'
+count=1
+
+
+
+num_of_dir=$(find . -type d | wc -l)
+counter=`expr $num_of_dir - 1`
+
+echo "There are" $counter "directories inside this folder"
+
+echo "The biggest file is size" 
+hmm=$(ls -l ./ | cut -d " " -f 5- | cut -c-6)
+
+ls -l ./ | cut -d " " -f 5- | cut -c-6 > temp.txt
+
+cat temp.txt | sort -nr | head -1 
+
+
+#most recent date modified
+ls -l ./ | awk -F' ' '{print $(NF-1)}' > datestemp.txt  ;\
+ls -l ./ | awk -F ' ' '{print $(7)}' > dates2.txt ;\
+ls -l ./ | awk -F ' ' '{print $(6)}' > dates3.txt
+
+cat dates.txt | tail -n +2 > dates1.txt
+cat tmp.txt
+
+#while [ $count < num_of_files ]
+#do 
+
+
+ 
