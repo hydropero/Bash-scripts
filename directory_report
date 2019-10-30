@@ -15,24 +15,48 @@ counter=`expr $num_of_dir - 1`
 
 echo "There are" $counter "directories inside this folder"
 
+echo "---------------------------------------------------"
+
 echo "The biggest file is size" 
-hmm=$(ls -l ./ | cut -d " " -f 5- | cut -c-6)
+ls -al ./ | cut -d " " -f 5- | awk -F ' ' '{print $(1)}' > temp_big_file.txt
+echo "---------------------------------------------------"
 
-ls -l ./ | cut -d " " -f 5- | cut -c-6 > temp.txt
 
-cat temp.txt | sort -nr | head -1 
+
+cat temp_big_file.txt | sort -nr | head -1
+echo "---------------------------------------------------"
+
+rm temp_big_file.txt 
+
 
 
 #most recent date modified
-ls -l ./ | awk -F' ' '{print $(NF-1)}' > datestemp.txt  ;\
-ls -l ./ | awk -F ' ' '{print $(7)}' > dates2.txt ;\
-ls -l ./ | awk -F ' ' '{print $(6)}' > dates3.txt
+ls -lt ./ | head -n 2 | tail -n 1 | awk -F' ' '{print $(NF), $(NF-1), $(NF-3), $(NF-2)}'
+#ls -al ./ | awk -F ' ' '{print $(7)}' > dates2temp.txt ;\
+#ls -al ./ | awk -F ' ' '{print $(6)}' > dates3temp.txt
 
-cat dates.txt | tail -n +2 > dates1.txt
-cat tmp.txt
+#cat datestemp.txt | tail -n +2 > dates1temp.txt
+#cat dates1temp.txt
+
+#cat dates1temp.txt | nl > dates1_lined.txt
+#cat dates2temp.txt | nl > dates2_lined.txt
+#cat dates3temp.txt | nl > dates3_lined.txt
+
+#awk 'NF > 0' dates1_lined.txt > dates1_lined_v1.txt
+#awk 'NF > 0' dates2_lined.txt > dates2_lined_v1.txt
+#awk 'NF > 0' dates3_lined.txt > dates3_lined_v1.txt
+
+
+
+
+#join dates1_lined_v1.txt dates3_lined_v1.txt > 1_3combo.txt
+#join 1_3combo.txt dates2_lined_v1.txt > full_combo.txt
+#cat full_combo.txt | cut -f2- -d " " > combo_no_ln.txt
+
+
+
+
 
 #while [ $count < num_of_files ]
 #do 
-
-
  
