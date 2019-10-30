@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ ${#@} -ne 0 ]] && [[ "${@#"--help"}" = "" ]]; then
+  printf -- "\nThis is just my poorly written script to give some deeper info about a directory.\n\nIncluding greater context than the ls command provide by default\n\n" ;
+  exit 0;
+fi;
+
 echo 'Folder-rundown'
 
 sleep 1
@@ -19,7 +24,7 @@ echo "---------------------------------------------------"
 
 echo "The biggest file is size" 
 ls -al ./ | cut -d " " -f 5- | awk -F ' ' '{print $(1)}' > temp_big_file.txt
-echo "---------------------------------------------------"
+
 
 
 
@@ -30,8 +35,16 @@ rm temp_big_file.txt
 
 
 
+
 #most recent date modified
-ls -lt ./ | head -n 2 | tail -n 1 | awk -F' ' '{print $(NF), $(NF-1), $(NF-3), $(NF-2)}'
+
+
+test="$(ls -lt ./ | head -n 2 | tail -n 1 | awk -F ' ' '{print $(NF)}')"
+echo "The most recently modified file is:" $test 
+test2=$(ls -lt ./ | head -n 2 | tail -n 1 | awk -F ' ' '{print $(NF-1), $(NF-3), $(NF-2)}')
+
+
+echo "This modification occured at approximately" $test2
 #ls -al ./ | awk -F ' ' '{print $(7)}' > dates2temp.txt ;\
 #ls -al ./ | awk -F ' ' '{print $(6)}' > dates3temp.txt
 
@@ -42,16 +55,16 @@ ls -lt ./ | head -n 2 | tail -n 1 | awk -F' ' '{print $(NF), $(NF-1), $(NF-3), $
 #cat dates2temp.txt | nl > dates2_lined.txt
 #cat dates3temp.txt | nl > dates3_lined.txt
 
-#awk 'NF > 0' dates1_lined.txt > dates1_lined_v1.txt
-#awk 'NF > 0' dates2_lined.txt > dates2_lined_v1.txt
-#awk 'NF > 0' dates3_lined.txt > dates3_lined_v1.txt
+#awk  dates1_lined.txt > dates1_lined_v1.txt
+#awk  dates2_lined.txt > dates2_lined_v1.txt
+#awk  dates3_lined.txt > dates3_lined_v1.txt
 
 
 
 
 #join dates1_lined_v1.txt dates3_lined_v1.txt > 1_3combo.txt
 #join 1_3combo.txt dates2_lined_v1.txt > full_combo.txt
-#cat full_combo.txt | cut -f2- -d " " > combo_no_ln.txt
+#cat full_combo.txt | cut -f2- -d  > combo_no_ln.txt
 
 
 
