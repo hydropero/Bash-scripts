@@ -8,8 +8,9 @@ help()
    # Display help
    echo ''
    echo ''
-   echo 'This utility will create many possible email permutations of a given name'
-   echo 'and domain to be used to contact someone whose exact email is unknown.'
+   echo 'This utility will create as many possible email permutations of a given'
+   echo 'name and domain. This is useful reaching someone whose exact email is not'
+   echo 'known'
    echo ''
    echo 'Input can be given as arguments for faster use as shown below.'
    echo ''
@@ -21,6 +22,7 @@ help()
 
 if [[ $1 == "-h" ]]
  then help
+ exit 0
 fi
 echo ''
 echo 'Welcome to the emailgen utility'
@@ -49,7 +51,7 @@ DOMAIN='@'${DOMAIN}
 EMAIL_PERM1=${FIRST_NAME}'.'${LAST_NAME}${DOMAIN}
 EMAIL_PERM2=${FIRST_NAME:0:1}'.'${LAST_NAME}${DOMAIN}
 EMAIL_PERM3=${FIRST_NAME:0:1}'.'${LAST_NAME:0:1}${DOMAIN}
-EMAIL_PERM4=${FIRST_NAME}'.'{LAST_NAME:0:1}${DOMAIN}
+EMAIL_PERM4=${FIRST_NAME}'.'${LAST_NAME:0:1}${DOMAIN}
 
 EMAIL_PERM5=${FIRST_NAME:0:1}${LAST_NAME}${DOMAIN}
 EMAIL_PERM6=${FIRST_NAME}${LAST_NAME}${DOMAIN}
@@ -107,3 +109,5 @@ done
 
 cat email.txt | tr -d '\n' > emails.txt
 rm email.txt
+MAIL_LIST=$(cat emails.txt)
+xdg-open mailto://${MAIL_LIST}
