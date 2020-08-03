@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ ${#@} -ne 0 ]] && [[ "${@#"--help"}" = "" ]]; then
-  printf -- "\nThis is just my poorly written script to give some deeper info about a directory.\n\nIncluding greater context than the ls command provide by default\n\n" ;
+  printf -- "\nThis script gives deeper insight into a directory.;
   exit 0;
 fi;
 
