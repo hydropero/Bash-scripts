@@ -106,8 +106,21 @@ do
      echo ${!TEST}';' >> email.txt
    fi
 done
+echo ''
+echo ''
+echo "Enter file name for emails to be saved inside (No Spaces Allowed)"
+echo ''
+echo "Example - Filename: email_list"
+read -p 'Filename: ' FILENAME
 
-cat email.txt | tr -d '\n' > emails.txt
+cat email.txt | tr -d '\n' > ${FILENAME}.txt
 rm email.txt
-MAIL_LIST=$(cat emails.txt)
-xdg-open mailto://${MAIL_LIST}
+MAIL_LIST=$(cat ${FILENAME}.txt)
+sleep .5
+echo ''
+echo ''
+echo "Created ${FILENAME}.txt in the directory that email_generator was run"
+echo ''
+echo "List of emails permutation copied into ${FILENAME}.txt"
+echo ''
+echo ''
